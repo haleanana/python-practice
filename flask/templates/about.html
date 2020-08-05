@@ -1,12 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-{{ company[1]["name"] }}
-
-{% for number in list_of_numbers %}
-<p>{{ number }} </p>
-{% endfor %}
-
 <h2>{{ page_title }}</h2>
 <p>
 	The formation of the group grew out of a meeting Gandalf had with Thorin in Bree which kindled Thorin's interest in
@@ -20,9 +14,12 @@
 
 {% for member in company %}
 
+
 <div class="row featurette">
+    {% if loop.index % 2 != 0 %}
+
 	<div class="col-md-7">
-		<h3>{{ member.name }}</h3>
+		<h3><a href=" /about/{{ member.url }} " >{{loop.index }} {{ member.name }}</a></h3>
 		<p>
 		    {{ member.description }}
 		</p>
@@ -30,8 +27,22 @@
 	<div class="col-md-5">
 		<img class="featurette-image img-responsive" src="{{ member.image_source }}">
     </div>
+    {% else %}
+    <div class="col-md-5">
+		<img class="featurette-image img-responsive" src="{{ member.image_source }}">
+    </div>
+    <div class="col-md-7">
+		<h3><a href=" /about/{{ member.url }} ">{{ loop.index }} {{ member.name }}</a></h3>
+		<p>
+		    {{ member.description }}
+		</p>
+	</div>
+
+    {% endif %}
 </div>
+{% if loop.index != 13 %}
 <hr class="featurette-divider">
+{% endif %}
 {% endfor %}
 
 {% endblock %}
